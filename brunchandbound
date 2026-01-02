@@ -1,0 +1,44 @@
+Explication Théorique du BRUNCH AND BOUND :
+1. 🧠 Explication Théorique du Branch and Bound
+Principe général :
+Le Branch and Bound est une méthode d'optimisation qui explore intelligemment l'espace des solutions en éliminant (élagage) les branches qui ne peuvent pas contenir la solution optimale.
+Fonctionnement pour le TSP (Travelling Salesman Problem)
+Pour notre robot médical qui doit visiter N services :
+
+Borne inférieure (Lower Bound) : À chaque nœud de l'arbre de recherche, on calcule une estimation du coût minimum pour compléter le parcours
+Élagage (Pruning) : Si la borne inférieure d'une branche dépasse le meilleur coût trouvé jusqu'ici, on abandonne cette branche
+Exploration : On explore les branches prometteuses en priorité
+
+Calcul de la borne inférieure :
+Plusieurs méthodes existent. La plus courante pour le TSP : Méthode de réduction des matrices :
+
+Pour chaque ligne : soustraire le minimum de la ligne à tous les éléments
+Pour chaque colonne : soustraire le minimum de la colonne à tous les éléments
+La somme de ces réductions = borne inférieure
+
+Exemple : Matrice initiale :
+     A   B   C   D
+A  [ ∞  10  15  20 ]
+B  [ 10  ∞  35  25 ]
+C  [ 15  35  ∞  30 ]
+D  [ 20  25  30  ∞  ]
+
+Réduction par lignes (min = [10, 10, 15, 20]) :
+     A   B   C   D
+A  [ ∞   0   5  10 ]
+B  [ 0   ∞  25  15 ]
+C  [ 0  20   ∞  15 ]
+D  [ 0   5  10   ∞ ]
+Coût += 10+10+15+20 = 55
+
+Réduction par colonnes (min = [0, 0, 5, 10]) :
+     A   B   C   D
+A  [ ∞   0   0   0 ]
+B  [ 0   ∞  20   5 ]
+C  [ 0  20   ∞   5 ]
+D  [ 0   5   5   ∞ ]
+Coût += 0+0+5+10 = 15
+
+Borne inférieure totale = 55 + 15 = 70
+
+
